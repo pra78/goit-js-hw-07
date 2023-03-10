@@ -5,10 +5,27 @@ const galleryContainer = document.querySelector(".gallery");
 
 const makeGalleryContainerMarkup = galleryItems.map((image) => {
     const { preview, original, description } = image;
+
+    // <div class="gallery__item">
+        //     <a class="gallery__link" href="large-image.jpg">
+        //         <img
+        //             class="gallery__image"
+        //             src="small-image.jpg"
+        //             data-source="large-image.jpg"
+        //             alt="Image description"
+        //         />
+        //     </a>
+        // </div>
+
     return `
         <li class="gallery__item">
             <a href="${original}" class="gallery__link">
-                <img src="${preview}" alt="${description}" class="gallery__image">
+                <img
+                    class="gallery__image"
+                    src="${preview}" 
+                    data-source="${original}"
+                    alt="${description}" 
+                />
             </a>
         </li>`;
 }).join("");
