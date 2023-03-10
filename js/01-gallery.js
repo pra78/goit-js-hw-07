@@ -3,19 +3,17 @@ import { galleryItems } from './gallery-items.js';
 
 const galleryContainer = document.querySelector(".gallery");
 
-const makeGalleryContainerMarkup = image => {
-  const { preview, original, description } = image;
+const makeGalleryContainerMarkup = galleryItems.map((image) => {
+    const { preview, original, description } = image;
     return `
-        <li class="gallery-item">
-            <a href="${original}">
-                <img src="${preview}" alt="${description}" class="gallery-img">
+        <li class="gallery__item">
+            <a href="${original}" class="gallery__link">
+                <img src="${preview}" alt="${description}" class="gallery__image">
             </a>
         </li>`;
-};
+}).join("");
 
-const makeGalleryCard = galleryItems.map(makeGalleryContainerMarkup).join("");
-
-const makeGalleryList = `<ul>${makeGalleryCard}</ul>`;
+const makeGalleryList = `<ul class="gallery">${makeGalleryContainerMarkup}</ul>`;
 
 galleryContainer.insertAdjacentHTML("afterbegin", makeGalleryList);
 
