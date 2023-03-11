@@ -7,7 +7,6 @@ galleryContainer.addEventListener('click', onClick);
 
 const makeGalleryContainerMarkup = galleryItems.map((image) => {
     const { preview, original, description } = image;
-
     return `
         <div class="gallery__item">
             <a class="gallery__link" href="${original}">
@@ -27,7 +26,8 @@ function onClick(event) {
     if (event.target.nodeName !== 'IMG') {
         return;
     }
-    console.log(event.target.dataset.source);
+    event.preventDefault();
+    basicLightbox.create(`
+		<img width="1400" height="900" src="${event.target.dataset.source}">
+	`).show()
 }
-
-console.log(galleryItems);
