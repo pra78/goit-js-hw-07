@@ -3,35 +3,31 @@ import { galleryItems } from './gallery-items.js';
 
 const galleryContainer = document.querySelector(".gallery");
 
+galleryContainer.addEventListener('click', onClick);
+
 const makeGalleryContainerMarkup = galleryItems.map((image) => {
     const { preview, original, description } = image;
 
-    // <div class="gallery__item">
-        //     <a class="gallery__link" href="large-image.jpg">
-        //         <img
-        //             class="gallery__image"
-        //             src="small-image.jpg"
-        //             data-source="large-image.jpg"
-        //             alt="Image description"
-        //         />
-        //     </a>
-        // </div>
-
     return `
-        <li class="gallery__item">
-            <a href="${original}" class="gallery__link">
+        <div class="gallery__item">
+            <a class="gallery__link" href="${original}">
                 <img
                     class="gallery__image"
-                    src="${preview}" 
+                    src="${preview}"
                     data-source="${original}"
-                    alt="${description}" 
+                    alt="${description}"
                 />
             </a>
-        </li>`;
+        </div>`;
 }).join("");
 
-const makeGalleryList = `<ul class="gallery">${makeGalleryContainerMarkup}</ul>`;
+galleryContainer.insertAdjacentHTML("afterbegin", makeGalleryContainerMarkup);
 
-galleryContainer.insertAdjacentHTML("afterbegin", makeGalleryList);
+function onClick(event) {
+    if (event.target.nodeName !== 'IMG') {
+        return;
+    }
+    console.log(event.target.dataset.source);
+}
 
 console.log(galleryItems);
