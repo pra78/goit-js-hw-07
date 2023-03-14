@@ -5,8 +5,6 @@ const galleryContainer = document.querySelector(".gallery");
 
 galleryContainer.addEventListener('click', onClick);
 
-let currentBasicLightbox = null;
-
 const makeGalleryContainerMarkup = galleryItems.map((image) => {
     const { preview, original, description } = image;
     return `
@@ -29,16 +27,16 @@ function onClick(event) {
         return;
     }
     event.preventDefault();
-    currentBasicLightbox = basicLightbox.create(`
-		<img width="1400" height="900" src="${event.target.dataset.source}">
-	`)
-    currentBasicLightbox.show();
-    document.addEventListener('keydown', onEscPressed);
-}
 
-function onEscPressed(event) {
-    if (event.code === "Escape") {
-        currentBasicLightbox.close();
-        document.removeEventListener("keydown", onEscPressed);
-    }
+    const html = `<img width="1400" height="900" src="${event.target.dataset.source}">`
+    
+    const currentBasicLightbox = basicLightbox.create(html, {
+        onShow: (basicLightbox) => {
+	        document.onkeydown = function(event) {
+		        if (event.code === "Escape") {
+			        basicLightbox.close();
+		        }
+	        };
+        },
+    }).show()
 }
