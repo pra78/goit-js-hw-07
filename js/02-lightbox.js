@@ -3,8 +3,6 @@ import { galleryItems } from './gallery-items.js';
 
 const galleryContainer = document.querySelector(".gallery");
 
-galleryContainer.addEventListener('click', onClick);
-
 const makeGalleryContainerMarkup = galleryItems.map((image) => {
     const { preview, original, description } = image;
     return `
@@ -21,27 +19,12 @@ const makeGalleryContainerMarkup = galleryItems.map((image) => {
 
 galleryContainer.insertAdjacentHTML("afterbegin", makeGalleryContainerMarkup);
 
-function onClick(event) {
+let gallery = new SimpleLightbox('.gallery a', { captionsData: "alt", captionDelay: 250, });
+gallery.on('show.simplelightbox', function (event) {
     if (event.target.nodeName !== 'IMG') {
         return;
     }
     event.preventDefault();
-    var lightbox = new SimpleLightbox('.gallery a', { captionsData: "alt", captionDelay: 250, });
-}
+});
 
 console.log(galleryItems);
-
-let gallery = new SimpleLightbox('.gallery a');
-gallery.on('show.simplelightbox', function () {
-	// do something…
-});
-
-gallery.on('error.simplelightbox', function (e) {
-	console.log(e); // some usefull information
-});
-
-// with jQuery nearly the same
-let gallery = $('.gallery a').simpleLightbox();
-gallery.on('show.simplelightbox', function () {
-	// do something…
-});
