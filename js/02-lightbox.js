@@ -20,11 +20,5 @@ const makeGalleryContainerMarkup = galleryItems.map((image) => {
 galleryContainer.insertAdjacentHTML("afterbegin", makeGalleryContainerMarkup);
 
 let gallery = new SimpleLightbox('.gallery a', { captionsData: "alt", captionDelay: 250, });
-gallery.on('show.simplelightbox', function (event) {
-    if (event.target.nodeName !== 'IMG') {
-        return;
-    }
-    event.preventDefault();
-});
 
 console.log(galleryItems);
